@@ -49,7 +49,7 @@ export default function Dashboard() {
             <span style={{ fontSize: 15 }}>◫</span>
             <span style={{ fontSize: 11, fontWeight: 600, color: '#999', letterSpacing: '.06em', textTransform: 'uppercase' }}>Monitor</span>
           </div>
-          <div style={{ borderLeft: '1.5px solid #ebebeb', marginLeft: 15, paddingLeft: 12, marginBottom: 10 }}>
+          <div style={{ borderLeft: '2px solid #f0f0f0', marginLeft: 19, paddingLeft: 14, marginBottom: 10 }}>
             {[['Domains', true, '5'], ['SSL Certs', false, null], ['DNS Records', false, null]].map(([name, active, count]) => (
               <div key={name} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '6px 8px', borderRadius: 6, fontSize: 13.5, color: active ? '#111' : '#555', fontWeight: active ? 500 : 400, background: active ? '#f5f5f5' : 'transparent', marginBottom: 1, cursor: 'pointer' }}>
                 {name}
@@ -63,7 +63,7 @@ export default function Dashboard() {
             <span style={{ fontSize: 15 }}>◎</span>
             <span style={{ fontSize: 11, fontWeight: 600, color: '#999', letterSpacing: '.06em', textTransform: 'uppercase' }}>Alerts</span>
           </div>
-          <div style={{ borderLeft: '1.5px solid #ebebeb', marginLeft: 15, paddingLeft: 12, marginBottom: 10 }}>
+          <div style={{ borderLeft: '2px solid #f0f0f0', marginLeft: 19, paddingLeft: 14, marginBottom: 10 }}>
             {[['Notifications', false, true], ['History', false, false]].map(([name, active, dot]) => (
               <div key={name} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '6px 8px', borderRadius: 6, fontSize: 13.5, color: active ? '#111' : '#555', fontWeight: active ? 500 : 400, background: active ? '#f5f5f5' : 'transparent', marginBottom: 1, cursor: 'pointer' }}>
                 {name}
@@ -133,7 +133,7 @@ export default function Dashboard() {
                   onClick={() => setExpanded(isOpen ? null : d.id)}
                   style={{ border: '1px solid', borderColor: isOpen ? '#d4d4d4' : '#e8e8e8', borderRadius: 14, overflow: 'hidden', cursor: 'pointer', background: '#fff', boxShadow: isOpen ? '0 4px 20px rgba(0,0,0,.07)' : 'none', transition: 'box-shadow .15s, border-color .15s' }}
                 >
-                  <div style={{ padding: '18px 18px 14px' }}>
+                  <div style={{ padding: '22px 20px 18px' }}>
                     <div style={{ fontSize: 15, fontWeight: 700, letterSpacing: '-.3px', color: '#111', marginBottom: 4 }}>
                       {d.name}<span style={{ color: '#aaa', fontWeight: 400 }}>{d.tld}</span>
                     </div>
@@ -156,7 +156,7 @@ export default function Dashboard() {
                   </div>
 
                   {isOpen && (
-                    <div style={{ padding: '0 18px 18px' }}>
+                    <div style={{ padding: '0 20px 20px' }}>
                       <div style={{ height: 1, background: '#f0f0f0', marginBottom: 14 }} />
                       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6, marginBottom: 14 }}>
                         {[
