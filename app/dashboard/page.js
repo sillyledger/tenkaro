@@ -16,14 +16,9 @@ const badges = {
   warn: { label: 'Expiring', bg: '#fffbeb', color: '#d97706', border: '#fde68a' },
   dead: { label: 'Expired', bg: '#fef2f2', color: '#dc2626', border: '#fecaca' },
 }
-const expiryText = {
-  ok:   { color: '#444' },
-  warn: { color: '#d97706', fontWeight: 500 },
-  dead: { color: '#dc2626', fontWeight: 500 },
-}
 
 const S = {
-  shell: { display: 'grid', gridTemplateColumns: '200px 1fr', minHeight: '100vh', fontFamily: 'Inter, sans-serif' },
+  shell: { display: 'grid', gridTemplateColumns: '200px 1fr', minHeight: '100vh', fontFamily: 'Inter, sans-serif', background: '#fff' },
   sidebar: { background: '#fff', borderRight: '1px solid #ebebeb', padding: '20px 0', display: 'flex', flexDirection: 'column' },
   logoWrap: { display: 'flex', alignItems: 'center', gap: 8, padding: '0 16px 18px', borderBottom: '1px solid #ebebeb' },
   logoMark: { width: 24, height: 24, background: '#111', borderRadius: 5, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 10, fontWeight: 700 },
@@ -83,23 +78,23 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Main */}
-      <div style={{ display: 'flex', flexDirection: 'column', background: '#fff' }}>
+      {/* Main — centered */}
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', background: '#fff' }}>
+        <div style={{ width: '100%', maxWidth: 860, padding: '36px 24px 0' }}>
 
-        {/* Header */}
-        <div style={{ padding: '28px 40px 0', maxWidth: 920, width: '100%' }}>
-          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 4 }}>
+          {/* Header */}
+          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 20 }}>
             <div>
               <div style={{ fontSize: 22, fontWeight: 700, letterSpacing: '-.5px', color: '#111' }}>Your domains</div>
-              <div style={{ fontSize: 12.5, color: '#888', marginTop: 3, marginBottom: 20 }}>Monitoring expiry, SSL &amp; DNS changes</div>
+              <div style={{ fontSize: 13, color: '#888', marginTop: 4 }}>Monitoring expiry, SSL &amp; DNS changes</div>
             </div>
-            <button style={{ background: '#111', color: '#fff', border: 'none', borderRadius: 8, padding: '8px 14px', fontSize: 12.5, fontWeight: 500, cursor: 'pointer', fontFamily: 'Inter, sans-serif', marginTop: 4 }}>
+            <button style={{ background: '#111', color: '#fff', border: 'none', borderRadius: 8, padding: '8px 16px', fontSize: 13, fontWeight: 500, cursor: 'pointer', fontFamily: 'Inter, sans-serif', marginTop: 4 }}>
               + Add domain
             </button>
           </div>
 
           {/* Pills */}
-          <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 24 }}>
+          <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 28 }}>
             {filters.map(f => (
               <button key={f} onClick={() => setFilter(f)} style={{ padding: '6px 14px', borderRadius: 20, fontSize: 12.5, fontWeight: 500, cursor: 'pointer', border: '1px solid', borderColor: filter === f ? '#111' : '#e5e5e5', background: filter === f ? '#111' : '#fff', color: filter === f ? '#fff' : '#555', fontFamily: 'Inter, sans-serif' }}>
                 {f === 'all' ? `All ${domains.length}` : f === 'expiring' ? '⚠ Expiring' : f}
@@ -107,69 +102,62 @@ export default function Dashboard() {
             ))}
           </div>
 
-          <div style={{ height: 1, background: '#ebebeb', marginLeft: -40, marginRight: -40 }} />
-        </div>
+          <div style={{ height: 1, background: '#ebebeb', marginBottom: 28 }} />
 
-        {/* Grid */}
-        <div style={{ padding: '24px 40px', maxWidth: 920, width: '100%' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+          {/* Grid */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14 }}>
             {filtered.map(d => {
               const isOpen = expanded === d.id
               const badge = badges[d.status]
-              const sc = statusColors[d.status]
-              const et = expiryText[d.status]
               return (
                 <div
                   key={d.id}
                   onClick={() => setExpanded(isOpen ? null : d.id)}
-                  style={{ border: '1px solid', borderColor: isOpen ? '#d0d0d0' : '#e8e8e8', borderRadius: 14, overflow: 'hidden', cursor: 'pointer', background: '#fff', boxShadow: isOpen ? '0 4px 20px rgba(0,0,0,.08)' : 'none', transition: 'box-shadow .15s, border-color .15s' }}
+                  style={{ border: '1px solid #e8e8e8', borderRadius: 14, overflow: 'hidden', cursor: 'pointer', background: '#fff', boxShadow: isOpen ? '0 4px 20px rgba(0,0,0,.07)' : 'none', transition: 'box-shadow .15s, border-color .15s', borderColor: isOpen ? '#d4d4d4' : '#e8e8e8' }}
                 >
-                  {/* Status bar */}
-                  <div style={{ height: 3, background: sc }} />
-
                   {/* Card body */}
-                  <div style={{ padding: '16px 16px 14px' }}>
-                    <div style={{ fontSize: 15, fontWeight: 700, letterSpacing: '-.3px', color: '#111', marginBottom: 3 }}>
-                      {d.name}<span style={{ color: '#999', fontWeight: 400 }}>{d.tld}</span>
+                  <div style={{ padding: '18px 18px 14px' }}>
+                    <div style={{ fontSize: 15, fontWeight: 700, letterSpacing: '-.3px', color: '#111', marginBottom: 4 }}>
+                      {d.name}<span style={{ color: '#aaa', fontWeight: 400 }}>{d.tld}</span>
                     </div>
-                    <div style={{ fontSize: 11.5, color: '#888', marginBottom: 12 }}>
+                    <div style={{ fontSize: 12, color: '#888', marginBottom: 16 }}>
                       {d.registrar} · Registered {d.registered}
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
-                      <div style={{ fontSize: 12, ...et }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
+                      <div style={{ fontSize: 12.5, color: '#333' }}>
                         {d.status === 'dead' ? `Expired ${d.expiryDate}` : `Expires ${d.expiryDate}`}
                       </div>
-                      <div style={{ display: 'inline-flex', alignItems: 'center', gap: 3, fontSize: 10.5, fontWeight: 500, padding: '2px 8px', borderRadius: 20, background: badge.bg, border: `1px solid ${badge.border}`, color: badge.color }}>
+                      <div style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 11, fontWeight: 500, padding: '3px 8px', borderRadius: 20, background: badge.bg, border: `1px solid ${badge.border}`, color: badge.color }}>
                         <div style={{ width: 4, height: 4, borderRadius: '50%', background: badge.color }} />
                         {badge.label}
                       </div>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                      <div style={{ fontSize: 11, color: '#aaa' }}>Checked 2h ago</div>
-                      <div style={{ fontSize: 11, color: '#aaa', transition: 'transform .2s', transform: isOpen ? 'rotate(180deg)' : 'none', display: 'inline-block' }}>▾</div>
+                      <div style={{ fontSize: 11, color: '#bbb' }}>Checked 2h ago</div>
+                      <div style={{ fontSize: 11, color: '#bbb', transition: 'transform .2s', transform: isOpen ? 'rotate(180deg)' : 'none', display: 'inline-block' }}>▾</div>
                     </div>
                   </div>
 
                   {/* Expanded */}
                   {isOpen && (
-                    <div style={{ padding: '0 16px 16px' }}>
-                      <div style={{ height: 1, background: '#f0f0f0', marginBottom: 12 }} />
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6, marginBottom: 12 }}>
+                    <div style={{ padding: '0 18px 18px' }}>
+                      <div style={{ height: 1, background: '#f0f0f0', marginBottom: 14 }} />
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6, marginBottom: 14 }}>
                         {[
                           ['SSL cert', d.ssl, d.sslStatus],
                           ['Expiry date', d.expiryDate, d.status],
                           ['DNS changes', d.dns, 'neutral'],
                           ['Auto-renew', d.autoRenew ? 'On' : 'Off', d.autoRenew ? 'ok' : 'dead'],
                         ].map(([lbl, val, st]) => (
-                          <div key={lbl} style={{ padding: '7px 9px', background: '#fafafa', borderRadius: 8, border: '1px solid #f0f0f0' }}>
-                            <div style={{ fontSize: 9.5, color: '#aaa', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '.05em', marginBottom: 2 }}>{lbl}</div>
-                            <div style={{ fontSize: 12, fontWeight: 500, color: st === 'neutral' ? '#333' : statusColors[st] || '#333' }}>{val}</div>
+                          <div key={lbl} style={{ padding: '8px 10px', background: '#fafafa', borderRadius: 8, border: '1px solid #f0f0f0' }}>
+                            <div style={{ fontSize: 10, color: '#bbb', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '.05em', marginBottom: 3 }}>{lbl}</div>
+                            <div style={{ fontSize: 12.5, fontWeight: 500, color: st === 'neutral' ? '#333' : statusColors[st] || '#333' }}>{val}</div>
                           </div>
                         ))}
                       </div>
-                      <div style={{ display: 'flex', gap: 7 }}>
-                        <button style={{ flex: 1, padding: '8px', borderRadius: 8, border: '1px solid #e5e5e5', background: '#fff', fontSize: 12, fontWeight: 500, cursor: 'pointer', fontFamily: 'Inter, sans-serif', color: '#444' }}>Edit alerts</button>
-                        <button style={{ flex: 1, padding: '8px', borderRadius: 8, border: 'none', background: '#111', fontSize: 12, fontWeight: 500, cursor: 'pointer', fontFamily: 'Inter, sans-serif', color: '#fff' }}>Renew ↗</button>
+                      <div style={{ display: 'flex', gap: 8 }}>
+                        <button style={{ flex: 1, padding: '8px', borderRadius: 8, border: '1px solid #e5e5e5', background: '#fff', fontSize: 12.5, fontWeight: 500, cursor: 'pointer', fontFamily: 'Inter, sans-serif', color: '#444' }}>Edit alerts</button>
+                        <button style={{ flex: 1, padding: '8px', borderRadius: 8, border: 'none', background: '#111', fontSize: 12.5, fontWeight: 500, cursor: 'pointer', fontFamily: 'Inter, sans-serif', color: '#fff' }}>Renew ↗</button>
                       </div>
                     </div>
                   )}
@@ -179,7 +167,7 @@ export default function Dashboard() {
 
             {/* Add card */}
             <div
-              style={{ border: '1px dashed #e5e5e5', borderRadius: 14, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 8, padding: 32, cursor: 'pointer', background: '#fff', minHeight: 140 }}
+              style={{ border: '1px dashed #e5e5e5', borderRadius: 14, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 8, padding: 32, cursor: 'pointer', background: '#fff', minHeight: 160 }}
               onMouseEnter={e => e.currentTarget.style.background = '#fafafa'}
               onMouseLeave={e => e.currentTarget.style.background = '#fff'}
             >
